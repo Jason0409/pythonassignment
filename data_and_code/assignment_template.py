@@ -1,7 +1,7 @@
 """COMP1730/6730 assignment S2 2018.
 
-Coauthors: <University ID>, <University ID>, <University ID>
-Date: <Date>
+Coauthors: <u6261174>, <u6068466>, <u6323315>
+Date: <05/10/2018>
 """
 
 from visualise import show_vegetation_type

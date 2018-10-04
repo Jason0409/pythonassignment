@@ -3,7 +3,8 @@
 Don't edit this file!
 """
 
-def show_vegetation_type(vegetation_type: list):
+
+def show_vegetation_type(vegetation_type:list):
     """Show an image of the vegetation type.
 
     Don't edit this function!
