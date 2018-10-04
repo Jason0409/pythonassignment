@@ -130,3 +130,7 @@ if __name__ == '__main__':
     # If you want something to happen when you run this file,
     # put the code in this `if` block.
     pass
+
+
+veg_density_map = load_vegetation_density("../data_and_code/data/anu/vegetation_density.csv")
+show_vegetation_density(veg_density_map)
