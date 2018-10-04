@@ -54,7 +54,10 @@ def load_bushfire(filename):
 # function.
 
 def highest_wind_speed(wind_speed):
-    pass
+    new_data = []
+    for i in range(len(wind_speed)):
+        new_data.append(max(wind_speed[i]))
+    return max(new_data)
 
 
 # The argument to this function is a vegetation type map, in the
@@ -129,4 +132,9 @@ def simulate_bushfire_stochastic(
 if __name__ == '__main__':
     # If you want something to happen when you run this file,
     # put the code in this `if` block.
-    pass
+    veg_density_map = load_vegetation_density("../data_and_code/data/anu/vegetation_density.csv")
+    show_vegetation_density(veg_density_map)
+    wind_speed = load_wind_speed("../data_and_code/data/anu/wind.csv")
+    print(highest_wind_speed(wind_speed))
+
+
