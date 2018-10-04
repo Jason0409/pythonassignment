@@ -9,6 +9,7 @@ from visualise import show_vegetation_density
 from visualise import show_wind_speed
 from visualise import show_bushfire
 from visualise import show_fire_risk
+import csv
 
 
 # The following functions must return the data in the form of a
@@ -16,16 +17,35 @@ from visualise import show_fire_risk
 # in each cell, for each file type, is up to you.
 
 def load_vegetation_type(filename):
-    pass
+    with open(filename) as vegetation_type_csvfile:
+        reader = csv.reader(vegetation_type_csvfile)
+        # get row from table
+        vegetation_type_table = [row for row in reader]
+    return vegetation_type_table
+
 
 def load_vegetation_density(filename):
-    pass
+    with open(filename) as vegetation_density_csvfile:
+        reader = csv.reader(vegetation_density_csvfile)
+        # get row from table
+        vegetation_density_table = [row for row in reader]
+    return vegetation_density_table
+
 
 def load_wind_speed(filename):
-    pass
+    with open(filename) as wind_speed_csvfile:
+        reader = csv.reader(wind_speed_csvfile)
+        # get row from table
+        wind_speed_table = [row for row in reader]
+    return wind_speed_table
+
 
 def load_bushfire(filename):
-    pass
+    with open(filename) as bushfire_csvfile:
+        reader = csv.reader(bushfire_csvfile)
+        # get row from table
+        bushfire_table = [row for row in reader]
+    return bushfire_table
 
 
 # The argument to this function is a wind speed map, in the
