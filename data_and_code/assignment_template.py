@@ -91,32 +91,32 @@ def count_area(vegetation_type, vegetation_density):
 
 def fire_risk(x, y, vegetation_type, vegetation_density, wind_speed):
     # x is the column and y is the row
-    nearby_x = []
-    nearby_y = []
+    dif_x_arr = []
+    dif_y_arr = []
     # fire_radius is the radius of fire impact
-    fire_radius = math.floor(float(wind_speed[x][y]))
-    for i in range(-fire_radius, fire_radius+1):
-        for j in range(-fire_radius, fire_radius+1):
-            if (i * i + j * j <= fire_radius * fire_radius):
-                nearby_x.append(i)
-                nearby_y.append(j)
+    fire_radius = math.floor(float(wind_speed[y][x]))
+    for dif_y in range(-fire_radius, fire_radius + 1):
+        for dif_x in range(-fire_radius, fire_radius + 1):
+            if (dif_y * dif_y + dif_x * dif_x <= fire_radius * fire_radius):
+                dif_x_arr.append(dif_x)
+                dif_y_arr.append(dif_y)
     # sum all of the risk factor
     sum_risk_factor = 0
 
-    for i in range(0, len(nearby_x)):
-        pos_x = x + nearby_x[i]
-        pos_y = y + nearby_y[i]
-        if pos_x>=0 and pos_x <len(vegetation_type) and pos_y>=0 and pos_y<len(vegetation_type[pos_x]):
-            if (vegetation_type[pos_x][pos_y] == "Shrubland" or vegetation_type[pos_x][pos_y] == "Pine Forest"):
+    for dif_y in range(0, len(dif_y_arr)):
+        pos_x = x + dif_x_arr[dif_y]
+        pos_y = y + dif_y_arr[dif_y]
+        if pos_y >= 0 and pos_y < len(vegetation_type) and pos_x >= 0 and pos_x < len(vegetation_type[pos_y]):
+            if (vegetation_type[pos_y][pos_x] == "Shrubland" or vegetation_type[pos_y][pos_x] == "Pine Forest"):
                 # print(sum_risk_factor)
-                sum_risk_factor = sum_risk_factor + math.sqrt(0.2 + float(vegetation_density[pos_x][pos_y]))
-            elif (vegetation_type[pos_x][pos_y] == "Arboretum"):
-                sum_risk_factor = sum_risk_factor + math.sqrt(0.1 + float(vegetation_density[pos_x][pos_y]))
-            elif (vegetation_type[pos_x][pos_y] == "Urban Vegetation" or vegetation_type[pos_x][pos_y] == "Golf Course"):
-                sum_risk_factor = sum_risk_factor + math.sqrt(0.05 + float(vegetation_density[pos_x][pos_y]))
+                sum_risk_factor = sum_risk_factor + math.sqrt(0.2 + float(vegetation_density[pos_y][pos_x]))
+            elif (vegetation_type[pos_y][pos_x] == "Arboretum"):
+                sum_risk_factor = sum_risk_factor + math.sqrt(0.1 + float(vegetation_density[pos_y][pos_x]))
+            elif (vegetation_type[pos_y][pos_x] == "Urban Vegetation" or vegetation_type[pos_y][pos_x] == "Golf Course"):
+                sum_risk_factor = sum_risk_factor + math.sqrt(0.05 + float(vegetation_density[pos_y][pos_x]))
             else:
-                if(vegetation_density[pos_x][pos_y]>='0'and vegetation_density[pos_x][pos_y]<'2'):
-                    sum_risk_factor = sum_risk_factor + math.sqrt(0 + float(vegetation_density[pos_x][pos_y]))
+                if (vegetation_density[pos_y][pos_x] >= '0' and vegetation_density[pos_y][pos_x] < '2'):
+                    sum_risk_factor = sum_risk_factor + math.sqrt(0 + float(vegetation_density[pos_y][pos_x]))
 
     return sum_risk_factor
 
