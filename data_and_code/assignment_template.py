@@ -10,6 +10,7 @@ from visualise import show_wind_speed
 from visualise import show_bushfire
 from visualise import show_fire_risk
 import csv
+import math
 
 
 # The following functions must return the data in the form of a
@@ -89,7 +90,35 @@ def count_area(vegetation_type, vegetation_density):
 #   of the load_wind_speed function).
 
 def fire_risk(x, y, vegetation_type, vegetation_density, wind_speed):
-    pass
+    # x is the column and y is the row
+    nearby_x = []
+    nearby_y = []
+    # fire_radius is the radius of fire impact
+    fire_radius = math.floor(float(wind_speed[x][y]))
+    for i in range(-fire_radius, fire_radius+1):
+        for j in range(-fire_radius, fire_radius+1):
+            if (i * i + j * j <= fire_radius * fire_radius):
+                nearby_x.append(i)
+                nearby_y.append(j)
+    # sum all of the risk factor
+    sum_risk_factor = 0
+
+    for i in range(0, len(nearby_x)):
+        pos_x = x + nearby_x[i]
+        pos_y = y + nearby_y[i]
+        if pos_x>=0 and pos_x <len(vegetation_type) and pos_y>=0 and pos_y<len(vegetation_type[pos_x]):
+            if (vegetation_type[pos_x][pos_y] == "Shrubland" or vegetation_type[pos_x][pos_y] == "Pine Forest"):
+                # print(sum_risk_factor)
+                sum_risk_factor = sum_risk_factor + math.sqrt(0.2 + float(vegetation_density[pos_x][pos_y]))
+            elif (vegetation_type[pos_x][pos_y] == "Arboretum"):
+                sum_risk_factor = sum_risk_factor + math.sqrt(0.1 + float(vegetation_density[pos_x][pos_y]))
+            elif (vegetation_type[pos_x][pos_y] == "Urban Vegetation" or vegetation_type[pos_x][pos_y] == "Golf Course"):
+                sum_risk_factor = sum_risk_factor + math.sqrt(0.05 + float(vegetation_density[pos_x][pos_y]))
+            else:
+                if(vegetation_density[pos_x][pos_y]>='0'and vegetation_density[pos_x][pos_y]<'2'):
+                    sum_risk_factor = sum_risk_factor + math.sqrt(0 + float(vegetation_density[pos_x][pos_y]))
+
+    return sum_risk_factor
 
 
 # The arguments to this function are an initial bushfile map (a list
@@ -132,9 +161,11 @@ def simulate_bushfire_stochastic(
 if __name__ == '__main__':
     # If you want something to happen when you run this file,
     # put the code in this `if` block.
-    veg_density_map = load_vegetation_density("../data_and_code/data/anu/vegetation_density.csv")
-    show_vegetation_density(veg_density_map)
-    wind_speed = load_wind_speed("../data_and_code/data/anu/wind.csv")
-    print(highest_wind_speed(wind_speed))
-
-
+    # veg_density_map = load_vegetation_density("../data_and_code/data/anu/vegetation_density.csv")
+    # show_vegetation_density(veg_density_map)
+    # wind_speed = load_wind_speed("../data_and_code/data/anu/wind.csv")
+    # print(highest_wind_speed(wind_speed))
+    density_map = load_vegetation_density("../data_and_code/data/anu/vegetation_density.csv")
+    type_map = load_vegetation_density("../data_and_code/data/anu/vegetation_type.csv")
+    wind_speed_map = load_wind_speed("../data_and_code/data/anu/wind.csv")
+    show_fire_risk(fire_risk, type_map, density_map, wind_speed_map)
