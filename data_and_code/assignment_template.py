@@ -93,13 +93,16 @@ def fire_risk(x, y, vegetation_type, vegetation_density, wind_speed):
     # x is the column and y is the row
     dif_x_arr = []
     dif_y_arr = []
+    fire_radius =0
     # fire_radius is the radius of fire impact
-    fire_radius = math.floor(float(wind_speed[y][x]))
+    if wind_speed[y][x]!='':
+        fire_radius = math.floor(float(wind_speed[y][x]))
     for dif_y in range(-fire_radius, fire_radius + 1):
         for dif_x in range(-fire_radius, fire_radius + 1):
             if (dif_y * dif_y + dif_x * dif_x <= fire_radius * fire_radius):
                 dif_x_arr.append(dif_x)
                 dif_y_arr.append(dif_y)
+
     # sum all of the risk factor
     sum_risk_factor = 0
 
@@ -115,7 +118,7 @@ def fire_risk(x, y, vegetation_type, vegetation_density, wind_speed):
             elif (vegetation_type[pos_y][pos_x] == "Urban Vegetation" or vegetation_type[pos_y][pos_x] == "Golf Course"):
                 sum_risk_factor = sum_risk_factor + math.sqrt(0.05 + float(vegetation_density[pos_y][pos_x]))
             else:
-                if (vegetation_density[pos_y][pos_x] >= '0' and vegetation_density[pos_y][pos_x] < '2'):
+                if (vegetation_density[pos_y][pos_x]!=''):
                     sum_risk_factor = sum_risk_factor + math.sqrt(0 + float(vegetation_density[pos_y][pos_x]))
 
     return sum_risk_factor
@@ -165,7 +168,13 @@ if __name__ == '__main__':
     # show_vegetation_density(veg_density_map)
     # wind_speed = load_wind_speed("../data_and_code/data/anu/wind.csv")
     # print(highest_wind_speed(wind_speed))
+    # question 4 anu test
     density_map = load_vegetation_density("../data_and_code/data/anu/vegetation_density.csv")
     type_map = load_vegetation_density("../data_and_code/data/anu/vegetation_type.csv")
     wind_speed_map = load_wind_speed("../data_and_code/data/anu/wind.csv")
     show_fire_risk(fire_risk, type_map, density_map, wind_speed_map)
+    # question 4 south test
+    # density_map = load_vegetation_density("../data_and_code/data/south/vegetation_density.csv")
+    # type_map = load_vegetation_density("../data_and_code/data/south/vegetation_type.csv")
+    # wind_speed_map = load_wind_speed("../data_and_code/data/south/wind.csv")
+    # show_fire_risk(fire_risk, type_map, density_map, wind_speed_map)
