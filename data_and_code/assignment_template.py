@@ -152,17 +152,11 @@ def simulate_bushfire(initial_bushfire, vegetation_type, vegetation_density, ste
     for point in point:
         if(point[0]<len(initial_bushfire)and point[1]<len(initial_bushfire)):
             if(initial_bushfire[point[0]][point[1]]):
-                initial_bushfire[point[0]][point[1]]=True
+                initial_bushfire[point[0]][point[1]]='1'
             else:
                 initial_bushfire[point[0]][point[1]]=''
 
     return initial_bushfire
-
-
-
-
-
-
 
 # The arguments to this function are two bushfile maps (each a list
 # of lists, i.e., same format as returned by your implementation of
@@ -234,8 +228,10 @@ if __name__ == '__main__':
 
 
     # question 6 anu test
-    bushfire_a = load_bushfire("../data_and_code/data/anu/initial_2003_bushfire.csv")
-    bushfire_b = load_bushfire("../data_and_code/data/anu/initial_2003_bushfire.csv")
+    # bushfire_a = load_bushfire("../data_and_code/data/anu/initial_2003_bushfire.csv")
+    # bushfire_b = load_bushfire("../data_and_code/data/anu/2003_bushfire.csv")
+    bushfire_a = load_bushfire("../data_and_code/data/south/initial_2003_bushfire.csv")
+    bushfire_b = load_bushfire("../data_and_code/data/south/2003_bushfire.csv")
     print(compare_bushfires(bushfire_a, bushfire_b))
 
     # question 7
