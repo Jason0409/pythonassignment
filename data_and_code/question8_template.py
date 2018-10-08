@@ -7,7 +7,7 @@ Date: <Date>
 """
 
 
-def plot_fire_spread(vegetation_type, vegetation_density, wind_speed):
+def plot_fire_spread(initial_bushfire, vegetation_type, vegetation_density, wind_speed):
     pass
 
 
