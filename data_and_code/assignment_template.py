@@ -67,17 +67,41 @@ def highest_wind_speed(wind_speed):
 # function.
 
 def count_cells(vegetation_type):
-    pass
-
-
+    vegetation = ["Open Forest", "Forest", "Open Woodland", "Woodland",
+                  "Pine Forest", "Arboretum", "Grassland", "Shrubland",
+                  "Golf Course", "Urban Vegetation"]
+    vegetation_num = []
+    for type in vegetation:
+        num = 0
+        for i in range(len(vegetation_type)):
+            for j in range(len(vegetation_type[i])):
+                if vegetation_type[i][j] == type:
+                    num += 1
+        vegetation_num.append(num)
+    for i in range(len(vegetation)):
+        print(vegetation[i], ": ",vegetation_num[i])
 # The arguments to this function are a vegetation type map and
 # a vegetation density map, both in the form of a list of lists.
 # They are the same data structure that is returned by your
 # implementations of the load_vegetation_type and load_vegetation_density
 # functions, respectively.
 
+
 def count_area(vegetation_type, vegetation_density):
-    pass
+    vegetation = ["Open Forest", "Forest", "Open Woodland", "Woodland",
+                  "Pine Forest", "Arboretum", "Grassland", "Shrubland",
+                  "Golf Course", "Urban Vegetation"]
+    vegetation_density_sum =[]
+    for type in vegetation:
+        density_sum = 0.00
+        for i in range(len(vegetation_type)):
+            for j in range(len(vegetation_type[i])):
+                if vegetation_type[i][j] == type:
+                    density_sum += float(vegetation_density[i][j])*10000
+        vegetation_density_sum.append(density_sum)
+
+    for i in range(len(vegetation)):
+        print(vegetation[i], ": %.2f" % vegetation_density_sum[i], " sq m")
 
 
 # The arguments to this function are:
@@ -233,6 +257,13 @@ if __name__ == '__main__':
     # wind_speed = load_wind_speed("../data_and_code/data/anu/wind.csv")
     # print(highest_wind_speed(wind_speed))
 
+    # question 3 test
+    veg_density_type = load_vegetation_type("../data_and_code/data/anu/vegetation_type.csv")
+    veg_density_map = load_vegetation_density("../data_and_code/data/anu/vegetation_density.csv")
+    count_cells(veg_density_type)
+    print()
+    count_area(veg_density_type, veg_density_map)
+
     # question 4 anu test
     # density_map = load_vegetation_density("../data_and_code/data/anu/vegetation_density.csv")
     # type_map = load_vegetation_density("../data_and_code/data/anu/vegetation_type.csv")
@@ -265,15 +296,15 @@ if __name__ == '__main__':
     # question 6 anu test
     # bushfire_a = load_bushfire("../data_and_code/data/anu/initial_2003_bushfire.csv")
     # bushfire_b = load_bushfire("../data_and_code/data/anu/2003_bushfire.csv")
-    bushfire_a = load_bushfire("../data_and_code/data/south/initial_2003_bushfire.csv")
-    bushfire_b = load_bushfire("../data_and_code/data/south/2003_bushfire.csv")
-    # bushfire_b =final_bushfire
-    print(compare_bushfires(bushfire_a, bushfire_b))
-
-    # question 7
-    initial_bushfire = load_bushfire("../data_and_code/data/south/2003_bushfire.csv")
-    vegetation_type = load_vegetation_type("../data_and_code/data/south/vegetation_type.csv")
-    vegetation_density = load_vegetation_density("../data_and_code/data/south/vegetation_density.csv")
-    wind_speed = load_wind_speed("../data_and_code/data/south/wind.csv")
-    stochastic_bush_fire =simulate_bushfire_stochastic(initial_bushfire, 3, vegetation_type, vegetation_density, wind_speed)
-    show_bushfire(stochastic_bush_fire)
+    # bushfire_a = load_bushfire("../data_and_code/data/south/initial_2003_bushfire.csv")
+    # bushfire_b = load_bushfire("../data_and_code/data/south/2003_bushfire.csv")
+    # # bushfire_b =final_bushfire
+    # print(compare_bushfires(bushfire_a, bushfire_b))
+    #
+    # # question 7
+    # initial_bushfire = load_bushfire("../data_and_code/data/south/2003_bushfire.csv")
+    # vegetation_type = load_vegetation_type("../data_and_code/data/south/vegetation_type.csv")
+    # vegetation_density = load_vegetation_density("../data_and_code/data/south/vegetation_density.csv")
+    # wind_speed = load_wind_speed("../data_and_code/data/south/wind.csv")
+    # stochastic_bush_fire =simulate_bushfire_stochastic(initial_bushfire, 3, vegetation_type, vegetation_density, wind_speed)
+    # show_bushfire(stochastic_bush_fire)
