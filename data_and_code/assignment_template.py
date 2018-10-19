@@ -4,7 +4,6 @@ Coauthors: <u6261174>, <u6068466>, <u6323315>
 Date: <05/10/2018>
 """
 import random
-
 from visualise import show_vegetation_type
 from visualise import show_vegetation_density
 from visualise import show_wind_speed
@@ -68,9 +67,18 @@ def highest_wind_speed(wind_speed):
 # function.
 
 def count_cells(vegetation_type):
-    vegetation = ["Open Forest", "Forest", "Open Woodland", "Woodland",
-                  "Pine Forest", "Arboretum", "Grassland", "Shrubland",
-                  "Golf Course", "Urban Vegetation"]
+
+    vegetation = []
+    for i in range(len(vegetation_type)):
+        for j in range(len(vegetation_type[i])):
+            if vegetation_type[i][j] != '' and vegetation_type[i][j] not in vegetation:
+                vegetation.append(vegetation_type[i][j])
+
+    # print(vegetation)
+    # vegetation = ["Open Forest", "Forest", "Open Woodland", "Woodland",
+    #               "Pine Forest", "Arboretum", "Grassland", "Shrubland",
+    #               "Golf Course", "Urban Vegetation"]
+
     vegetation_num = []
     for type in vegetation:
         num = 0
@@ -79,6 +87,7 @@ def count_cells(vegetation_type):
                 if vegetation_type[i][j] == type:
                     num += 1
         vegetation_num.append(num)
+
     for i in range(len(vegetation)):
         print(vegetation[i], ": ",vegetation_num[i])
 # The arguments to this function are a vegetation type map and
@@ -89,9 +98,17 @@ def count_cells(vegetation_type):
 
 
 def count_area(vegetation_type, vegetation_density):
-    vegetation = ["Open Forest", "Forest", "Open Woodland", "Woodland",
-                  "Pine Forest", "Arboretum", "Grassland", "Shrubland",
-                  "Golf Course", "Urban Vegetation"]
+
+    vegetation = []
+    for i in range(len(vegetation_type)):
+        for j in range(len(vegetation_type[i])):
+            if vegetation_type[i][j] != '' and vegetation_type[i][j] not in vegetation:
+                vegetation.append(vegetation_type[i][j])
+
+    # vegetation = ["Open Forest", "Forest", "Open Woodland", "Woodland",
+    #               "Pine Forest", "Arboretum", "Grassland", "Shrubland",
+    #               "Golf Course", "Urban Vegetation"]
+
     vegetation_density_sum =[]
     for type in vegetation:
         density_sum = 0.00
@@ -244,8 +261,7 @@ def simulate_bushfire_stochastic(initial_bushfire, steps,vegetation_type, vegeta
                 pos_x = point_value[0] + nearpoint[0]
                 pos_y = point_value[1] + nearpoint[1]
                 if 0 <= pos_x < len(initial_bushfire) and 0 <= pos_y < len(initial_bushfire) and initial_bushfire[pos_x][pos_y] == '0':
-                    random_num = random.randint(0, 75)
-                    # random_num = 75 * np.random.random()
+                    random_num = 75 * random.random()
                     if random_num < fire_factor_x[pos_x][pos_y]:
                         initial_fire_point.add((pos_x, pos_y))
 
@@ -268,8 +284,8 @@ if __name__ == '__main__':
     # print(highest_wind_speed(wind_speed))
 
     # question 3 test
-    # veg_density_type = load_vegetation_type("../data_and_code/data/anu/vegetation_type.csv")
-    # veg_density_map = load_vegetation_density("../data_and_code/data/anu/vegetation_density.csv")
+    # veg_density_type = load_vegetation_type("../data_and_code/data/act/vegetation_type.csv")
+    # veg_density_map = load_vegetation_density("../data_and_code/data/act/vegetation_density.csv")
     # count_cells(veg_density_type)
     # print()
     # count_area(veg_density_type, veg_density_map)
@@ -295,9 +311,9 @@ if __name__ == '__main__':
     # show_bushfire(final_bushfire)
 
     # question 5 south test
-    # initial_bushfire = load_bushfire("../data_and_code/data/south/initial_2003_bushfire.csv")
-    # vegetation_density = load_vegetation_density("../data_and_code/data/south/vegetation_density.csv")
-    # vegetation_type = load_vegetation_density("../data_and_code/data/south/vegetation_type.csv")
+    # initial_bushfire = load_bushfire("../data_and_code/data/act/initial_2003_bushfire.csv")
+    # vegetation_density = load_vegetation_density("../data_and_code/data/act/vegetation_density.csv")
+    # vegetation_type = load_vegetation_density("../data_and_code/data/act/vegetation_type.csv")
     #
     # final_bushfire = simulate_bushfire(initial_bushfire, vegetation_type, vegetation_density, 100)
     # show_bushfire(final_bushfire)
