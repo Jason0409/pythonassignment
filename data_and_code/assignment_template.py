@@ -191,6 +191,12 @@ def simulate_bushfire(initial_bushfire, vegetation_type, vegetation_density, ste
                 if(pos_x>=0 and pos_x<len(initial_bushfire) and pos_y>=0 and pos_y<len(initial_bushfire)):
                     if(initial_bushfire[pos_x][pos_y]!=''):
                         point.add((point_value[0]+nearpoint[0],point_value[1]+nearpoint[1]))
+        # for point in point:
+        #     if (point[0] < len(initial_bushfire) and point[1] < len(initial_bushfire)):
+        #         if (initial_bushfire[point[0]][point[1]]):
+        #             initial_bushfire[point[0]][point[1]] = '1'
+        #         else:
+        #             initial_bushfire[point[0]][point[1]] = ''
 
     for point in point:
         if(point[0]<len(initial_bushfire)and point[1]<len(initial_bushfire)):
@@ -204,6 +210,7 @@ def simulate_bushfire(initial_bushfire, vegetation_type, vegetation_density, ste
 # The arguments to this function are two bushfile maps (each a list
 # of lists, i.e., same format as returned by your implementation of
 # the load_bushfire function).
+
 
 def compare_bushfires(bushfire_a, bushfire_b):
     # total number of cells
@@ -239,7 +246,6 @@ def compare_bushfires(bushfire_a, bushfire_b):
 def simulate_bushfire_stochastic(initial_bushfire, steps,vegetation_type, vegetation_density,wind_speed):
 
     fire_factor_x=[]
-    fire_factor_y=[]
     initial_fire_point = set()
 
     for i in range(len(initial_bushfire)):
@@ -251,6 +257,7 @@ def simulate_bushfire_stochastic(initial_bushfire, steps,vegetation_type, vegeta
     near_fire_point = [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]
 
     for i in range(len(vegetation_type)):
+        fire_factor_y = []
         for j in range(len(vegetation_type[i])):
             fire_factor_y.append(fire_risk(j, i, vegetation_type, vegetation_density, wind_speed))
         fire_factor_x.append(fire_factor_y)
@@ -261,7 +268,7 @@ def simulate_bushfire_stochastic(initial_bushfire, steps,vegetation_type, vegeta
                 pos_x = point_value[0] + nearpoint[0]
                 pos_y = point_value[1] + nearpoint[1]
                 if 0 <= pos_x < len(initial_bushfire) and 0 <= pos_y < len(initial_bushfire) and initial_bushfire[pos_x][pos_y] == '0':
-                    random_num = 75 * random.random()
+                    random_num = 70 * random.random()
                     if random_num < fire_factor_x[pos_x][pos_y]:
                         initial_fire_point.add((pos_x, pos_y))
 
@@ -284,8 +291,8 @@ if __name__ == '__main__':
     # print(highest_wind_speed(wind_speed))
 
     # question 3 test
-    # veg_density_type = load_vegetation_type("../data_and_code/data/act/vegetation_type.csv")
-    # veg_density_map = load_vegetation_density("../data_and_code/data/act/vegetation_density.csv")
+    # veg_density_type = load_vegetation_type("../data_and_code/data/south/vegetation_type.csv")
+    # veg_density_map = load_vegetation_density("../data_and_code/data/south/vegetation_density.csv")
     # count_cells(veg_density_type)
     # print()
     # count_area(veg_density_type, veg_density_map)
@@ -327,12 +334,12 @@ if __name__ == '__main__':
     # print(compare_bushfires(bushfire_a, bushfire_b))
 
     # # question 7
-    initial_bushfire = load_bushfire("../data_and_code/data/south/initial_2003_bushfire.csv")
-    final_bushfire = load_bushfire("../data_and_code/data/south/2003_bushfire.csv")
-    vegetation_type = load_vegetation_type("../data_and_code/data/south/vegetation_type.csv")
-    vegetation_density = load_vegetation_density("../data_and_code/data/south/vegetation_density.csv")
-    wind_speed = load_wind_speed("../data_and_code/data/south/wind.csv")
+    initial_bushfire = load_bushfire("../data_and_code/data/act/initial_2003_bushfire.csv")
+    final_bushfire = load_bushfire("../data_and_code/data/act/2003_bushfire.csv")
+    vegetation_type = load_vegetation_type("../data_and_code/data/act/vegetation_type.csv")
+    vegetation_density = load_vegetation_density("../data_and_code/data/act/vegetation_density.csv")
+    wind_speed = load_wind_speed("../data_and_code/data/act/wind.csv")
     # show_bushfire(initial_bushfire)
-    stochastic_bush_fire = simulate_bushfire_stochastic(initial_bushfire, 265, vegetation_type, vegetation_density, wind_speed)
+    stochastic_bush_fire = simulate_bushfire_stochastic(initial_bushfire, 100, vegetation_type, vegetation_density, wind_speed)
     show_bushfire(stochastic_bush_fire)
     show_bushfire(final_bushfire)
